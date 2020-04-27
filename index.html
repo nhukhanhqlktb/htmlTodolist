@@ -31,7 +31,8 @@
 
 	function render(data){
 		let content = data.map(item => {
-			return `<tr><td>${item.content}</td> <td class="text-center"><a href=${urlEdit}#${item.id}>Edit</a></td></tr>`;
+			return `<tr><td>${item.content}</td> <td class="text-center"><a href=${urlEdit}?#${item.id}>Edit</a></td></tr>`;
+			/*url phải có dấu ?#id, nếu ko khi edit sẽ không được???*/
 		});
 		todolist.innerHTML = todolist.innerHTML + content.join('');
 	}

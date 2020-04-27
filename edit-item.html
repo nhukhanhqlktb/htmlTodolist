@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Edit item</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
@@ -24,17 +26,21 @@
 	const mainUrl = 'http://127.0.0.1:8080/';
 	const btn = document.querySelector('button');
 	const itemEdit = document.querySelector('input');
+	let id= parseInt(window.location.hash.slice(1));
 
 	btn.addEventListener('click', onEditItem);
 
 	function onEditItem(){
-		
+		axios.patch(`${url}/${id}`, {
+			content: itemEdit.value
+		}).then(res => {
+			window.location.replace(mainUrl);
+		});		
 	}
 
 	async function loadItemEdit(){
-		let id = window.location.hash.slice(1);
 		let result = await axios.get(url);
-		let content = result.data.filter(item => { return item.id === parseInt(id);});	
+		let content = result.data.filter(item => { return item.id === id;});
 		itemEdit.value = content[0].content;
 	}
 
