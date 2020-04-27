@@ -6,8 +6,38 @@
 </head>
 <body>
 	<div class="container pt-5">
+		<h5>Add new todo
+			<a href="./index.html">Back Home</a>
+		</h5>
 		<input type="text" name="">
 		<button>Add</button>
 	</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script type="text/javascript">
+	const url = 'http://127.0.0.1:9081/todos';
+	const mainUrl = 'http://127.0.0.1:8080/';
+	const btn = document.querySelector('button');
+	const newItem = document.querySelector('input');
+
+	btn.addEventListener('click', onAddTodo);
+
+	async function onAddTodo(){
+		let value = newItem.value;
+
+		if (!value) {
+			alert('Wrong input! Check input!')
+			return;
+		}
+		let result = await axios.post(url, {
+			content: value
+		});
+		window.location.replace(mainUrl);
+	}
+
+
+</script>
+
 </body>
 </html>

@@ -5,6 +5,40 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
+	<div class="container pt-5">
+		<h5>Edit a todo
+			<a href="./index.html">Back Home</a>
+		</h5>
+		<form>
+			<div class="form-group d-flex">
+				<input class="form-control" type="text" name="">
+				<button class="btn btn-primary ml-2">Edit</button>
+			</div>
+		</form>
+	</div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script type="text/javascript">
+	const url = 'http://127.0.0.1:9081/todos';
+	const mainUrl = 'http://127.0.0.1:8080/';
+	const btn = document.querySelector('button');
+	const itemEdit = document.querySelector('input');
+
+	btn.addEventListener('click', onEditItem);
+
+	function onEditItem(){
+		
+	}
+
+	async function loadItemEdit(){
+		let id = window.location.hash.slice(1);
+		let result = await axios.get(url);
+		let content = result.data.filter(item => { return item.id === parseInt(id);});	
+		itemEdit.value = content[0].content;
+	}
+
+	loadItemEdit();
+</script>
 </body>
 </html>

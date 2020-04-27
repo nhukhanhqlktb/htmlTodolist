@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Todolist</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
 <body>
 	<div class="container pt-5">
-		<a href="./new-item.html">Add item</a>
-		<ol id="todo-list"></ol>
+		<h3 class="text-center mb-5">My todolist</h3>
+		<table class="table table-hover" id="todo-list-table">
+			<tr class="text-center">
+				<th>Work</th>
+				<th>Edit</th>
+			</tr>
+		</table>
+		<a class="btn btn-primary mb-3" href="./new-item.html">Add item</a>
 	</div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
-	
+	const url = 'http://127.0.0.1:9081/todos';
+	const urlEdit = './edit-item.html'
+	const todolist = document.getElementById('todo-list-table');
+
+	async function getData(){
+	let result = await axios.get(url);
+	render(result.data);
+	}
+
+	function render(data){
+		let content = data.map(item => {
+			return `<tr><td>${item.content}</td> <td class="text-center"><a href=${urlEdit}#${item.id}>Edit</a></td></tr>`;
+		});
+		todolist.innerHTML = todolist.innerHTML + content.join('');
+	}
+
+	getData();
 </script>
 </body>
 </html>
